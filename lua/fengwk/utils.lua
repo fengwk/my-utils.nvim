@@ -257,7 +257,7 @@ local function path_to_name(path)
 end
 
 -- 非文件类型
-local not_file_ft = { "packer", "NvimTree", "toggleterm", "TelescopePrompt", "qf", "aerial", "dapui_scopes", "dapui_stacks", "dapui_breakpoints", "dapui_console", "dap-repl", "dapui_watches", "dap-repl", "gitcommit", "diff" }
+local not_file_ft = {}
 
 -- 设置非文件类型
 local function set_not_file_ft(new_not_file_ft)
