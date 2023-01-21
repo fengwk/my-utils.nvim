@@ -70,7 +70,7 @@ local function is_match_file(dir, parts)
     -- 过滤"."和".."目录
     if file_tail ~= "." and file_tail ~= ".." then
       for _, p in ipairs(parts) do
-        if p ~= nil and string.match(file_tail, p) then
+        if p ~= nil and string.match(file_tail, "^" .. p .. "$") then
           return true
         end
       end
