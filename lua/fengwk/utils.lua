@@ -272,17 +272,26 @@ local function is_not_file_ft(ft)
   return vim.tbl_contains(not_file_ft, ft)
 end
 
--- 大文件行数阈值
-local large_file_lines_threshold = 30000
--- 大文件占用内存阈值，单位byte
-local large_file_size_threshold = 1024 * 1024
+-- 大文件阈值
+local large_file_threshold ={
+  lines = 30000,
+  size = 1024 * 1024 -- 单位byte
+}
+
+local function get_large_file_lines_threshold()
+  return large_file_threshold.lines
+end
+
+local function get_large_file_size_threshold()
+  return large_file_threshold.size
+end
 
 local function set_large_file_lines_threshold(new_large_file_lines_threshold)
-  large_file_lines_threshold = new_large_file_lines_threshold
+  large_file_threshold.lines = new_large_file_lines_threshold
 end
 
 local function set_large_file_size_threshold(new_large_file_size_threshold)
-  large_file_size_threshold = new_large_file_size_threshold
+  large_file_threshold.size = new_large_file_size_threshold
 end
 
 return {
@@ -308,9 +317,9 @@ return {
   any_lsp_client_support = any_lsp_client_support,
   path_to_name = path_to_name,
   is_not_file_ft = is_not_file_ft,
-  large_file_lines_threshold = large_file_lines_threshold,
-  large_file_size_threshold = large_file_size_threshold,
   set_not_file_ft = set_not_file_ft,
+  get_large_file_lines_threshold = get_large_file_lines_threshold,
+  get_large_file_size_threshold = get_large_file_size_threshold,
   set_large_file_lines_threshold = set_large_file_lines_threshold,
   set_large_file_size_threshold = set_large_file_size_threshold,
 }
