@@ -294,6 +294,20 @@ local function set_large_file_size_threshold(new_large_file_size_threshold)
   large_file_threshold.size = new_large_file_size_threshold
 end
 
+local function is_large_buffer(buf)
+  -- 如果文件大小超过阈值则不高亮
+  local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+  if ok and stats and stats.size > get_large_file_size_threshold() then
+    return true
+  end
+  -- 如果文件行数超过阈值则不高亮
+  local line_count = vim.api.nvim_buf_line_count(buf)
+  if line_count and line_count > get_large_file_lines_threshold() then
+    return true
+  end
+  return false
+end
+
 return {
   os_name = os_name,
   fs_separator = fs_separator,
@@ -322,4 +336,5 @@ return {
   get_large_file_size_threshold = get_large_file_size_threshold,
   set_large_file_lines_threshold = set_large_file_lines_threshold,
   set_large_file_size_threshold = set_large_file_size_threshold,
+  is_large_buffer = is_large_buffer,
 }
